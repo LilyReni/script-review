@@ -1,5 +1,24 @@
 .App {
-  text-align: center;
+  text-align: left;
+}
+
+.edit {
+  padding: 20px;
+}
+
+.dropdown {
+  margin: 10px;
+}
+
+.dropdown:focus, .script-input:focus {
+  outline: none;
+}
+
+.script-input {
+  width: 400px;
+  height: 150px;
+  border-color: #f0f0f0;
+  border-radius: 5px;
 }
 
 .App-logo {
