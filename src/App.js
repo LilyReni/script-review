@@ -16,32 +16,31 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    // binding
     this.selectCharacter = this.selectCharacter.bind(this)
+    this.selectAct = this.selectAct.bind(this)
     this.selectBackground = this.selectBackground.bind(this)
     this.handleScriptChange = this.handleScriptChange.bind(this)
+
+    // build empty scripts
+    let chapterLength = 25
+    let initScripts = []
+    for (let i = 0; i < chapterLength; i++) {
+      initScripts.push({
+          character: '角色',
+          act: '表演',
+          background: '背景',
+          line: ''
+        })  
+    }
     
     this.state = {
       chapter: '白纸',
-      chapterLength: 3,
+      chapterLength: chapterLength,
       characters: ['周澄川', 'MAKOTO', '老师', '无'],
+      acts: ['微笑', '生气', '害羞', '难过', '无表情'],
       backgrounds: ['教室', '楼顶', '白色背景'],
-      scripts: [
-      	{
-      		character: '角色',
-      		background: '背景',
-      		line: ''
-      	},
-        {
-          character: '角色',
-          background: '背景',
-          line: ''
-        },
-        {
-          character: '角色',
-          background: '背景',
-          line: ''
-        }
-      ]
+      scripts: initScripts
     }
   }
 
@@ -56,6 +55,19 @@ class App extends Component {
   	this.setState({
   		scripts: newScripts
   	})
+  }
+
+  selectAct(actEventKey, event) {
+    let newScripts = this.state.scripts
+    let eventKeyArray = actEventKey.split(',')
+    let act = eventKeyArray[0]
+    let scriptIndex = eventKeyArray[1]
+    //console.log(act)
+    //console.log(scriptIndex)
+    newScripts[scriptIndex]['act'] = act
+    this.setState({
+      scripts: newScripts
+    })
   }
 
   selectBackground(backgroundEventKey, event) {
@@ -99,7 +111,15 @@ class App extends Component {
     					    {this.state.characters.map((character, i) => <Dropdown.Item href="#/action-1" eventKey={[character, scriptIndex]}>{character}</Dropdown.Item>)}
     					  </Dropdown.Menu>
   					  </Dropdown>
-    					  <Dropdown onSelect={this.selectBackground}>
+              <Dropdown onSelect={this.selectAct}>
+                <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
+                  {this.state.scripts[scriptIndex]['act']}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {this.state.acts.map((act, i) => <Dropdown.Item href="#/action-1" eventKey={[act, scriptIndex]}>{act}</Dropdown.Item>)}
+                </Dropdown.Menu>
+              </Dropdown>
+    					<Dropdown onSelect={this.selectBackground}>
     					  <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
     					    {this.state.scripts[scriptIndex]['background']}
     					  </Dropdown.Toggle>
