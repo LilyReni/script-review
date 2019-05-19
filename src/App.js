@@ -4,13 +4,14 @@ import './App.css';
 
 import Header from './components/Navbar'
 
-import {Dropdown, Row} from 'react-bootstrap'
+import {Dropdown, Row, Button} from 'react-bootstrap'
 
 const characterSelectStyle = {
 	background: 'white',
 	color: 'black',
 	border: 'white',
 }
+
 
 class App extends Component {
   constructor(props) {
@@ -27,10 +28,12 @@ class App extends Component {
     let initScripts = []
     for (let i = 0; i < chapterLength; i++) {
       initScripts.push({
+          scriptId: '',
           character: '角色',
           act: '表演',
           background: '背景',
-          line: ''
+          line: '',
+          scriptParentId: '',
         })  
     }
     
@@ -98,6 +101,7 @@ class App extends Component {
       <div className="App">
         <Header title={this.state.chapter}/>
         <div className="edit">
+        <Button variant="light">Save</Button>
 
         {[...Array(this.state.chapterLength).keys()].map((scriptIndex)=>
 
@@ -127,8 +131,15 @@ class App extends Component {
     					    {this.state.backgrounds.map((background, i) => <Dropdown.Item href="#/action-1" eventKey={[background, scriptIndex]}>{background}</Dropdown.Item>)}
     					  </Dropdown.Menu>
   					  </Dropdown>
+              <p className="script-uid-string">ID: {scriptIndex}</p>
 				    </Row>
-		        <textarea className="script-input" value={this.state.scripts[scriptIndex]['line']}onChange={this.handleScriptChange.bind(this, scriptIndex)}></textarea>
+            <Row>
+		          <textarea className="script-input" value={this.state.scripts[scriptIndex]['line']} onChange={this.handleScriptChange.bind(this, scriptIndex)}></textarea>
+            </Row>
+            <Row>
+              <Button className="expand-button" variant="light">+</Button>
+              <p className="script-uid-string">Parent ID: {scriptIndex}</p>
+            </Row>
 	        </div>
 
       )}

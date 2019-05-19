@@ -1,6 +1,6 @@
-.App {
+/*.App {
   text-align: left;
-}
+}*/
 
 .edit {
   padding: 20px;
@@ -10,7 +10,11 @@
   margin: 10px;
 }
 
-.dropdown:focus, .script-input:focus {
+.dropdown:hover {
+  background-color: grey;
+}
+
+.script-input:focus {
   outline: none;
 }
 
@@ -19,9 +23,23 @@
   height: 150px;
   border-color: #f0f0f0;
   border-radius: 5px;
+  margin-left: 20px;
 }
 
-.App-logo {
+.expand-button {
+  position: relative;
+  margin: 10px;
+}
+
+.script-uid-string {
+  color: grey;
+  margin-left: 80px;
+  margin-top: 15px; 
+}
+
+
+
+/*.App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
   pointer-events: none;
@@ -49,4 +67,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+}*/
