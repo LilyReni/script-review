@@ -22,13 +22,14 @@ class App extends Component {
     this.selectAct = this.selectAct.bind(this)
     this.selectBackground = this.selectBackground.bind(this)
     this.handleScriptChange = this.handleScriptChange.bind(this)
+    this.addChildScript = this.addChildScript.bind(this)
 
     // build empty scripts
     let chapterLength = 25
     let initScripts = []
     for (let i = 0; i < chapterLength; i++) {
       initScripts.push({
-          scriptId: '',
+          scriptId: i,
           character: '角色',
           act: '表演',
           background: '背景',
@@ -96,6 +97,15 @@ class App extends Component {
     })
   }
 
+  addChildScript(scriptIndex, event) {
+    // create a new script editor box with scriptIndex as parent ID
+    console.log(scriptIndex)
+
+    // init a script in state
+
+
+  }
+
   render() {
     return (
       <div className="App">
@@ -137,7 +147,7 @@ class App extends Component {
 		          <textarea className="script-input" value={this.state.scripts[scriptIndex]['line']} onChange={this.handleScriptChange.bind(this, scriptIndex)}></textarea>
             </Row>
             <Row>
-              <Button className="expand-button" variant="light">+</Button>
+              <Button className="expand-button" variant="light" onClick={this.addChildScript.bind(this, scriptIndex)}>+</Button>
               <p className="script-uid-string">Parent ID: {scriptIndex}</p>
             </Row>
 	        </div>
