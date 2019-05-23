@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 
@@ -102,6 +103,46 @@ class App extends Component {
     console.log(scriptIndex)
 
     // init a script in state
+    ReactDOM.render(
+                    <div className='script-block' id="canvas">
+                    <Row>
+                    <Dropdown onSelect={this.selectCharacter}>
+                    <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
+                    {this.state.scripts[scriptIndex]['character']}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                    {this.state.characters.map((character, i) => <Dropdown.Item href="#/action-1" eventKey={[character, scriptIndex]}>{character}</Dropdown.Item>)}
+                    </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown onSelect={this.selectAct}>
+                    <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
+                    {this.state.scripts[scriptIndex]['act']}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                    {this.state.acts.map((act, i) => <Dropdown.Item href="#/action-1" eventKey={[act, scriptIndex]}>{act}</Dropdown.Item>)}
+                    </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown onSelect={this.selectBackground}>
+                    <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
+                    {this.state.scripts[scriptIndex]['background']}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                    {this.state.backgrounds.map((background, i) => <Dropdown.Item href="#/action-1" eventKey={[background, scriptIndex]}>{background}</Dropdown.Item>)}
+                    </Dropdown.Menu>
+                    </Dropdown>
+                    <p className="script-uid-string">ID: {scriptIndex}</p>
+                    </Row>
+                    <Row>
+                    <textarea className="script-input" value={this.state.scripts[scriptIndex]['line']} onChange={this.handleScriptChange.bind(this, scriptIndex)}></textarea>
+                    </Row>
+                    <Row>
+                    <Button className="expand-button" variant="light" onClick={this.addChildScript.bind(this, scriptIndex)}>+</Button>
+                    <p className="script-uid-string">Parent ID: {scriptIndex}</p>
+                    </Row>
+                    New Box
+                    </div>,
+        document.getElementById(scriptIndex + '-canvas')
+    )
 
 
   }
@@ -115,8 +156,8 @@ class App extends Component {
 
         {[...Array(this.state.chapterLength).keys()].map((scriptIndex)=>
 
-	        <div className='script-block'>
-	        	<Row>
+            <div className='script-block' id={scriptIndex + "-canvas"}>
+              <Row>
   			      <Dropdown onSelect={this.selectCharacter}>
     					  <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
     					    {this.state.scripts[scriptIndex]['character']}
@@ -124,15 +165,15 @@ class App extends Component {
     					  <Dropdown.Menu>
     					    {this.state.characters.map((character, i) => <Dropdown.Item href="#/action-1" eventKey={[character, scriptIndex]}>{character}</Dropdown.Item>)}
     					  </Dropdown.Menu>
-  					  </Dropdown>
-              <Dropdown onSelect={this.selectAct}>
-                <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
-                  {this.state.scripts[scriptIndex]['act']}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {this.state.acts.map((act, i) => <Dropdown.Item href="#/action-1" eventKey={[act, scriptIndex]}>{act}</Dropdown.Item>)}
-                </Dropdown.Menu>
-              </Dropdown>
+                  </Dropdown>
+                  <Dropdown onSelect={this.selectAct}>
+                    <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
+                      {this.state.scripts[scriptIndex]['act']}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {this.state.acts.map((act, i) => <Dropdown.Item href="#/action-1" eventKey={[act, scriptIndex]}>{act}</Dropdown.Item>)}
+                    </Dropdown.Menu>
+                  </Dropdown>
     					<Dropdown onSelect={this.selectBackground}>
     					  <Dropdown.Toggle style={characterSelectStyle} id="dropdown-basic">
     					    {this.state.scripts[scriptIndex]['background']}
@@ -142,7 +183,7 @@ class App extends Component {
     					  </Dropdown.Menu>
   					  </Dropdown>
               <p className="script-uid-string">ID: {scriptIndex}</p>
-				    </Row>
+            </Row>
             <Row>
 		          <textarea className="script-input" value={this.state.scripts[scriptIndex]['line']} onChange={this.handleScriptChange.bind(this, scriptIndex)}></textarea>
             </Row>
